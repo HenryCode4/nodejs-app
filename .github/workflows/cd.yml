@@ -1,13 +1,13 @@
-name: CD Pipeline
+name: Deploy Docker Container
 
 on:
   workflow_run:
-    workflows: ["CD Pipeline"]
+    workflows: ["Build and Push Docker Image"]
     types:
       - completed
 
 jobs:
-  build:
+  deploy:
     runs-on: aws-ec2
 
     steps:
