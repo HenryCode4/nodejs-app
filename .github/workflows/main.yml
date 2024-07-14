@@ -15,20 +15,20 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build Docker image
-        run: docker build -t integrationdev/nodejs-app .
+        run: docker build -t integrationhenrydev/nodejs-app .
 
       - name: Publish image to Docker Hub
-        run: docker push integrationdev/nodejs-app:latest
+        run: docker push integrationhenrydev/nodejs-app:latest
 
   deploy: 
     needs: build
     runs-on: self-hosted
     steps:
       - name: Pull image from Docker Hub
-        run: docker pull integrationdev/nodejs-app:latest
+        run: docker pull integrationhenrydev/nodejs-app:latest
 
       - name: Delete old container
         run: docker rm -f nodejs-app-container || true
 
       - name: Run Docker container
-        run: docker run -d -p 5000:5000 --name nodejs-app-container integrationdev/nodejs-app:latest
+        run: docker run -d -p 5000:5000 --name nodejs-app-container integrationhenrydev/nodejs-app:latest
